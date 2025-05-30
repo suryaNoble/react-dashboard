@@ -56,8 +56,6 @@ const dashboard = () => {
             ))}
         </div>
       </section>
-
-      {/* <TripCard /> */}
     </main>
   );
 };
