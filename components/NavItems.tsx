@@ -1,12 +1,21 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLoaderData, useNavigate } from "react-router";
+import { logoutUser } from "~/appwrite/auth";
 import { sidebarItems } from "~/constants";
 import { cn } from "~/lib/utils";
 
 const NavItems = ({ handleClick }: { handleClick: () => void }) => {
-  const user = {
-    name: "sury Noble",
-    email: "suryanoble10509@gmail.com",
-    imageUrl: "/assets/images/david.webp",
+  const user = useLoaderData();
+  // in adminLayout we are returning existing user using that the particular users data will be fetched thats how the useLoaderData() function works
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      navigate("/sign-in");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -45,6 +54,7 @@ const NavItems = ({ handleClick }: { handleClick: () => void }) => {
           <img
             src={user?.imageUrl || "/assets/images/david.webp"}
             alt={user?.name || "Noble"}
+            referrerPolicy="no-referrer"
           />
 
           <article>
@@ -52,12 +62,7 @@ const NavItems = ({ handleClick }: { handleClick: () => void }) => {
             <p>{user?.email}</p>
           </article>
 
-          <button
-            onClick={() => {
-              console.log("logging out");
-            }}
-            className="cursor-pointer"
-          >
+          <button onClick={handleLogout} className="cursor-pointer">
             <img
               src="/assets/icons/logout.svg"
               alt="logout"
