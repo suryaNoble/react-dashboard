@@ -26,11 +26,23 @@ export function parseMarkdownToJson(markdownText: string): unknown | null {
   return null;
 }
 
-export function parseTripData(jsonString: string): Trip | null {
-  try {
-    const data: Trip = JSON.parse(jsonString);
+// export function parseTripData(jsonString: string): Trip | null {
+//   try {
+//     const data: Trip = JSON.parse(jsonString);
 
-    return data;
+//     return data;
+//   } catch (error) {
+//     console.error("Failed to parse trip data:", error);
+//     return null;
+//   }
+// }
+
+export function parseTripData(
+  jsonString: string | null | undefined
+): Trip | null {
+  if (typeof jsonString !== "string") return null;
+  try {
+    return JSON.parse(jsonString);
   } catch (error) {
     console.error("Failed to parse trip data:", error);
     return null;
