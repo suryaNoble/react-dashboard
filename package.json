@@ -3,12 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-     "dev": "cross-env NODE_OPTIONS=--import=./instrument.server.mjs react-router dev",
-  "build": "react-router build",
-  "start": "cross-env NODE_OPTIONS=--import=./instrument.server.mjs react-router-serve ./build/server/index.js",
+    "dev": "cross-env NODE_OPTIONS=--import=./instrument.server.mjs react-router dev",
+    "build": "react-router build",
+    "start": "cross-env NODE_OPTIONS=--import=./instrument.server.mjs react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "@sentry/profiling-node": "^9.24.0",

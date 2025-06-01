@@ -13,13 +13,11 @@ import {
 import { world_map } from "~/constants/world_map";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { account } from "~/appwrite/client";
-import { redirect } from "react-router";
+import { redirect, useNavigate } from "react-router";
 
 export const loader = async () => {
   const response = await fetch("https://restcountries.com/v3.1/all");
   const data = await response.json();
-  //   console.log(data);
-
   return data.map((country: any) => ({
     name: country.name.common,
     coordinates: country.latlng,
@@ -29,6 +27,7 @@ export const loader = async () => {
 };
 
 const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -64,6 +63,29 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
       console.log(formData);
       console.log("this si console trying to print the user");
       console.log(user);
+
+      const { country, duration, travelStyle, interest, budget, groupType } =
+        formData;
+
+      const response = await fetch("/api/create-trip", {
+        method: "POST",
+        headers: { "Content-Type": "application/JSON" },
+        body: JSON.stringify({
+          country,
+          numberOfDays: duration,
+          travelStyle,
+          interests: interest,
+          budget,
+          groupType,
+          userId: user.$id,
+        }),
+      });
+
+      const result: CreateTripResponse = await response.json();
+      if (result?.id) navigate(`trips/${result.id}`);
+      else {
+        console.log("failed to generate trip error in create trip.tsx line 87");
+      }
     } catch (error) {
       console.log(error);
       console.error("Cannot Create Trip!");

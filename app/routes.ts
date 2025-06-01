@@ -4,6 +4,7 @@ export default [
   route("sign-in", "routes/root/sign-in.tsx"),
   // route("*", "routes/root/sign-in.tsx"),
   route("sign-up", "routes/root/sign-up.tsx"),
+  route("api/create-trip", "routes/api/create-trip.ts"),
   layout("routes/admin/admin-layout.tsx", [
     route("dashboard", "routes/admin/dashboard.tsx"),
     route("all-users", "routes/admin/all-users.tsx"),
