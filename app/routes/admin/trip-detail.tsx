@@ -31,6 +31,8 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 const TripDetail = ({ loaderData }: Route.ComponentProps) => {
+  //   console.log(loaderData, "this is it");
+
   const tripData = parseTripData(loaderData?.trip?.tripDetail || null);
   const imageUrls = loaderData?.trip?.imageUrls || [];
 
@@ -226,8 +228,8 @@ const TripDetail = ({ loaderData }: Route.ComponentProps) => {
                     }.jpg`
                   }
                   location={trip.itinerary?.[0]?.location ?? "Unknown"}
-                  tags={[trip.interests, trip.travelStyle]}
-                  price={trip.estimatedPrice}
+                  tags={["Explore", "Luxury"]}
+                  price={trip.estimatedPrice || "$999"}
                 />
               ))
             : Array.from({ length: 3 }).map((_, i) => (
