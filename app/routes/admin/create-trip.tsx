@@ -16,8 +16,11 @@ import { account } from "~/appwrite/client";
 import { redirect, useNavigate } from "react-router";
 
 export const loader = async () => {
-  const response = await fetch("https://restcountries.com/v3.1/all");
+  const response = await fetch(
+    "https://restcountries.com/v3.1/all?fields=name,latlng,maps"
+  );
   const data = await response.json();
+
   return data.map((country: any) => ({
     name: country.name.common,
     coordinates: country.latlng,
